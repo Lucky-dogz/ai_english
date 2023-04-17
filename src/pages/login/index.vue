@@ -173,7 +173,7 @@ const goRegist = navName => {
     height: 7rem;
     margin: 1rem auto;
     background-color: pink;
-    background: url("@/assets/login.png") no-repeat;
+    background: url("@/assets/images/login.png") no-repeat;
     background-size: contain;
   }
   .login_form {

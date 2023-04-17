@@ -1,7 +1,7 @@
 // 引入vue
 import { createApp } from "vue"
 // 引入公共样式
-import "./style/common.scss"
+import "./assets/style/common.scss"
 // 引入App
 import { createPinia } from "pinia"
 import App from "./App.vue"
