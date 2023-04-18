@@ -48,7 +48,8 @@ export default defineConfig({
         changeOrigin: true,
       },
       "/my": {
-        target: "http://8.134.93.12:4000/ai",
+        // target: "http://8.134.93.12:4000/ai",
+        target: "http://localhost:4000/ai",
         rewrite: path => path.replace(/^\/my/, ""),
         ws: true, // 用于支持websocket
         changeOrigin: true,

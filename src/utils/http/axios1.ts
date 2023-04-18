@@ -27,6 +27,8 @@ const retry: Retry = {
 // requests.defaults.headers.post['Content-Type'] = 'application/json';
 // 请求拦截器：在发送请求之前，请求拦截器可以检测到，在请求发送之前处理一些事情
 requests.interceptors.request.use(config => {
+  const token: string = localStorage.getItem("token") ?? ""
+  config.headers.common.Authorization = "Bearer " + token // 留意这里的 Authorization
   // config: 是配置对象，该对象包含一个属性-->headers请求头
   return config
 })

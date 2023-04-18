@@ -69,6 +69,7 @@ const submitLogin = async (formEl: FormInstance | undefined) => {
           // {status: 200, msg: '用户注册成功！'}
           if (res.status === 200) {
             // console.log("登录成功！")
+            // 存入Token
             // 跳转至登录
             ElMessage({
               showClose: true,

@@ -6,7 +6,15 @@
   - [3、安装router、pinia、scss、axios](#3安装routerpiniascssaxios)
   - [4、配置ElementPlus、自动导入](#4配置elementplus自动导入)
   - [5、VSCode连接Git](#5vscode连接git)
-- [二、功能完成](#二功能完成)
+- [一、JWT实现登录注册鉴权](#一jwt实现登录注册鉴权)
+    - [1. 表单数据验证，这里只对账户和密码进行验证](#1-表单数据验证这里只对账户和密码进行验证)
+    - [2. 将表单验证规则注入接口](#2-将表单验证规则注入接口)
+    - [3. 定义错误处理中间件，在 app.js 添加如下代码，并写在路由下面](#3-定义错误处理中间件在-appjs-添加如下代码并写在路由下面)
+    - [4. 注册接口](#4-注册接口)
+    - [5. 登录接口](#5-登录接口)
+    - [6. Token校验](#6-token校验)
+
+
 
 本项目为省级大学生创新创业项目的一部分，完整项目为Android&Vue混合开发（Hybrid app），这里只是我负责的vue部分，因为感觉做的还不错，所以打算对此进行重构和完善出来，形成一个独立的移动端项目，旨在提供中学、大学生练习英语口语的平台，具有语音识别、评测、文章点读、收藏本等功能，界面充满动画元素，提高用户学习兴趣。项目点如下：
 
@@ -94,8 +102,7 @@ eslint只会提示你代码错误，并不会帮你自动修改，这时候就�
 修改`.eslintrc.cjs`文件，如下：
 
 ```js
-
-  extends: [
+extends: [
     'plugin:vue/vue3-recommended',
     "standard-with-typescript", // 标准规则
 +   'plugin:prettier/recommended',  
@@ -195,12 +202,6 @@ plugins: [
 根据[ElementPlus](http://element-plus.org/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)官方文档的按需引入：
 
 ```js
-// vite.config.ts
-import { defineConfig } from 'vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
 export default defineConfig({
   // ...
   plugins: [
@@ -236,4 +237,152 @@ export default defineConfig({
 - ` git push -u origin master  //提交到你的仓库 `
 - 实时更新直接在vscode里进行操作就好
 
-### 二、功能完成
+### 一、JWT实现登录注册鉴权
+
+我采用的是Express框架搭建后台服务，并部署到了阿里云的云服务器上，连接着项目数据库，这里就不描述数据库方面了，需要的库：
+
+- 表单验证模块：`npm i joi`
+- 验证数据表单中间件：`npm i @escook/express-joi`
+- **bcryptjs**加密：`npm i bcryptjs`，
+- **token**生成包：：`npm i jsonwebtoken@jsonwebtoken`
+- 解析 Token 的中间件：`npm i express-jwt`
+
+##### 1. 表单数据验证，这里只对账户和密码进行验证
+
+```js
+// 导入定义验证规则的包
+const joi = require("joi");
+// 定义用户名和密码的验证规则
+const user_num = joi.string().min(5).max(20).required();
+const user_pwd = joi.string().required();
+// 验证规则对象 - 注册和登录
+exports.reg_login_schema = {
+  body: {
+    user_num,
+    user_pwd,
+  },
+};
+```
+
+##### 2. 将表单验证规则注入接口
+
+```js
+// 用户注册
+router.post('/regist',expressJoi(reg_login_schema), userHandler.register )
+// 用户登录
+router.post('/login',expressJoi(reg_login_schema), userHandler.login)
+```
+
+##### 3. 定义错误处理中间件，在 app.js 添加如下代码，并写在路由下面
+
+这里的`joi.ValidationError`验证的就是上面设计的表单验证规则，并且对token进行验证
+
+```js
+// 错误中间件
+app.use(function (err, req, res, next) {
+  // 验证失败导致的错误
+  if (err instanceof joi.ValidationError)
+    return res.send({
+      status: 400,
+      msg: "请求参数不合法" + err.message,
+    });
+  // 身份认证失败错误
+  if (err.name === "UnauthorziedError")
+    return res.send({ status: 401, msg: "无效的token！" });
+  // 其它错误
+  res.send({
+    status: 500,
+    msg: err.message,
+  });
+});
+```
+
+##### 4. 注册接口
+
+利用bcrypt.hashSync() 对密码进行加密，优点：
+
+1. 加密之后的密码，无法被逆向破解
+2. 同一明文密码多次加密，得到的加密结果各不相同，保证了安全性
+
+bcrypt.hashSync(userInfo.user_pwd, saltRounds)
+
+saltRounds: 正数，代表hash杂凑次数，**数值越高越安全**，但是解密验证的时候性能越低，默认10次。
+
+```js
+// 注册用户的处理函数
+exports.register = (req, res) => {
+   // 获取客户端请求的用户信息
+   const userInfo = req.body;
+   // 定义 SQL 语句，查询用户名是否被占用
+   const sql = "SELECT * FROM users WHERE user_num = ?";
+   connection.query(sql, userInfo.user_num, (err, results) => {
+       // 执行 SQL 语句失败
+       if (err) return res.send({ status: 500, msg: err.message });
+       // 判断用户名是否被占用
+       if (results.length > 0) {
+         return res.send({ status: 400, msg: "用户名被占用，请更换其他用户名！" });
+       }
+      // 调用 bcrypt.hashSync() 对密码进行加密
+      userInfo.user_pwd = bcrypt.hashSync(userInfo.user_pwd, 10);
+      .....
+   });
+}
+```
+
+##### 5. 登录接口
+
+token配置
+
+```js
+module.exports = {
+    // 加密和解密 Token 的秘钥
+    secretKey: "...",
+    // token 的有效期
+    expiresIn: "2h",
+};
+```
+
+利用`bcrypt.compareSync`进行解密，`jwt.sign`进行用户信息的加密，生成token字符串发回浏览器
+
+```js
+// 密钥和token生效时间
+const { secretKey, expiresIn } = require("../../config/index");
+// 登录的处理函数
+exports.login = (req, res) => {
+        // 判断密码是否正确
+        const flag = bcrypt.compareSync(userInfo.user_pwd, results[0].user_pwd);
+        if (!flag) return res.send({ status: 403, msg: "登录失败，密码错误！" });
+        // 对用户信息进行加密，生成Token字符串
+        const token = jwt.sign({ user_num: req.body.user_num }, secretKey, {
+            expiresIn: expiresIn,
+        });
+        res.send({
+            status: 200,
+            msg: "登陆成功！",
+            token: token,
+        });
+    });
+```
+
+##### 6. Token校验
+
+```js
+// 使用 express-jwt 这个中间件
+// 通过 unless 配置接口白名单，也就是哪些 URL 可以不用经过校验，像登陆/注册都可以不用校验
+app.use(
+  jwt({ secret: secretKey, algorithms: ["HS256"] }).unless({
+    path: [/^\/user/],
+  })
+);
+```
+
+获取`token`用户的信息方法如下：
+
+```js
+router.get('/api/userInfo',async (ctx,next) => {
+    const authorization =  ctx.header.authorization // 获取jwt
+    const token = authorization.replace('Beraer ','')
+    const result = jwt.verify(token,'test_token')
+})
+```
+
