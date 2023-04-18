@@ -6,7 +6,7 @@
 
 解决Android&vue混合开发界面集成问题、集成开发讯飞口语语音评测模块的问题，获得省级大学生创新创业项目立项、申请软件著作权中。
 
-## 一、项目搭建
+### 一、项目搭建
 
 项目当时由于要赶DDL所以做的比较赶，采用的技术栈是**vue2+vue-router+vuex+element-ui+axios封装**，目前有时间了，于是就打算将项目重构下。
 
@@ -166,3 +166,60 @@ plugins: [
   ],
 ```
 
+#### 3、安装router、pinia、scss、axios
+
+- `npm i vue-router pinia axios`
+- `npm i node-sass sass sass-loader style-loader`
+
+#### 4、配置ElementPlus、自动导入
+
+- `npm i element-plus `
+
+- 自动导入vue中hook reactive ref等：`npm i unplugin-auto-import`
+- 自动导入ui-组件 比如说ant-design-vue  element-plus等：`npm i unplugin-vue-components`
+
+根据[ElementPlus](http://element-plus.org/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)官方文档的按需引入：
+
+```js
+// vite.config.ts
+import { defineConfig } from 'vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+export default defineConfig({
+  // ...
+  plugins: [
+    vue(),
+    AutoImport({
+      // 存放的位置
+      dts: "src/auto-import.d.ts",
+      eslintrc: {
+        enabled: true, // <-- this
+      },
+      resolvers: [ElementPlusResolver()],
+      // 安装两行后你会发现在组件中不用再导入ref，reactive等
+      imports: ["vue", "vue-router"],
+    }),
+    Components({
+      // 引入组件的,包括自定义组件
+      resolvers: [ElementPlusResolver()],
+      // 存放的位置
+      dts: "src/components.d.ts",
+    }),
+  ],
+})
+```
+
+#### 5、VSCode连接Git
+
+连接git可以很方便的进行项目编写以及迭代和暂存，规范化项目的编写，这里借助git bash进行连接
+
+- ` git init `
+- ` git add . //将当前目录提交到暂存区 `
+- ` git remote add origin *** //将本地的仓库关联到GitHub `
+- ` git pull origin master //上传github之前pull一下 `
+- ` git push -u origin master  //提交到你的仓库 `
+- 实时更新直接在vscode里进行操作就好
+
+### 二、功能完成
