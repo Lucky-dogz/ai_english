@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance, FormRules } from "element-plus"
+import { FormInstance, FormRules, ElMessage, ElMessageBox } from "element-plus"
 import { _userRegist } from "@/utils/http/api"
 // 抖动样式
 const active_button = ref<String>("")

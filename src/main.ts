@@ -7,10 +7,13 @@ import { createPinia } from "pinia"
 import App from "./App.vue"
 // router
 import router from "./router/index"
-// pinia
-
+// 引入Elmessage和Elloading的css样式文件
+import "element-plus/theme-chalk/el-loading.css"
+import "element-plus/theme-chalk/el-message.css"
+import "element-plus/theme-chalk/el-message-box.css"
 const app = createApp(App)
 const pinia = createPinia()
+
 // pinia
 app.use(pinia)
 // routes

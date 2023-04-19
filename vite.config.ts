@@ -16,7 +16,9 @@ export default defineConfig({
       // 存放的位置
       dts: "src/auto-import.d.ts",
       eslintrc: {
-        enabled: true, // <-- this
+        enabled: false, // Default `false`
+        filepath: "./.eslintrc-auto-import.json", // Default `./.eslintrc-auto-import.json`
+        globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
       },
       resolvers: [ElementPlusResolver()],
       // 安装两行后你会发现在组件中不用再导入ref，reactive等

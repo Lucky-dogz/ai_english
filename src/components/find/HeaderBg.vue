@@ -6,7 +6,7 @@
         <img class="btn" src="@/assets/images/find/search_u25.svg" />
       </form>
     </div>
-    <!-- <span class="avator" @click="changeToMy"></span> -->
+    <span class="avator" @click="changeToMy"></span>
     <!-- 头部背景图 -->
     <div id="u20" class="ax_default box_2">
       <div id="u20_div"></div>
@@ -28,12 +28,12 @@
 
 <script setup lang="ts">
 // 去我的
-/* const router = useRouter()
+const router = useRouter()
 const changeToMy = () => {
   router.push({
     name: "my",
   })
-} */
+}
 </script>
 
 <style lang="scss" scoped>

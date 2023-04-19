@@ -29,7 +29,7 @@ $color: #f7ae40;
   top: -3.5rem;
 }
 .cat {
-  background-color: @color;
+  background-color: $color;
   height: 0.99rem;
   width: 1.4rem;
   border-radius: 0 1.6rem 1.6rem 0;
@@ -40,12 +40,12 @@ $color: #f7ae40;
 .ear {
   height: 0.5rem;
   width: 0.42rem;
-  background-color: @color;
+  background-color: $color;
   position: absolute;
   bottom: 0.9rem;
   left: 0.02rem;
   border-radius: 1rem 0 0 0;
-  box-shadow: 0.7rem 0 @color;
+  box-shadow: 0.7rem 0 $color;
 }
 .eye,
 .eye:before {
@@ -102,7 +102,7 @@ $color: #f7ae40;
   }
 }
 .body {
-  background-color: @color;
+  background-color: $color;
   height: 1.35rem;
   width: 2.4rem;
   position: absolute;

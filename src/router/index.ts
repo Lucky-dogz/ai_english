@@ -1,15 +1,33 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHashHistory } from "vue-router"
 
 const routes = [
   {
     path: "/",
     redirect: "/find",
   },
+  {
+    path: "/login",
+    name: "login",
+    // 使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
+    component: async () => await import("@/pages/login/index.vue"),
+  },
+  {
+    path: "/regist",
+    name: "regist",
+    // 使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
+    component: async () => await import("@/pages/regist/index.vue"),
+  },
   // “发现”主界面
   {
     path: "/find",
     name: "find",
     component: async () => await import("@/pages/find/index.vue"),
+  },
+  // “我的”主界面
+  {
+    path: "/my",
+    name: "my",
+    component: async () => await import("@/pages/my/index.vue"),
   },
   // 点读
   {
@@ -27,28 +45,9 @@ const routes = [
   {
     path: "/articread",
     name: "articread",
-    // props: {
-    //   author: true,
-    //   category: true,
-    //   id: true,
-    //   info: true,
-    //   time_cursor: true,
-    //   title: true,
-    // }, // 当 props 设置为 true 时，route.params 将被设置为组件的 props。
     component: async () => await import("@/components/article/articRead.vue"),
   },
-  {
-    path: "/login",
-    name: "login",
-    // 使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
-    component: async () => await import("@/pages/login/index.vue"),
-  },
-  {
-    path: "/regist",
-    name: "regist",
-    // 使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
-    component: async () => await import("@/pages/regist/index.vue"),
-  },
+
   // {
   // 配置404页面
   // path: '/:catchAll(.*)',
@@ -58,7 +57,8 @@ const routes = [
 ]
 // 路由
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
+  // history: createWebHistory(),
   routes,
 })
 // 导出

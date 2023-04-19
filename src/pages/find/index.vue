@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <MainHeader />
+    <HeaderBg />
     <div id="contents">
       <NavBlock />
       <HotBlock />
@@ -9,12 +9,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import MainHeader from "@/components/find/HeaderBg.vue"
-import HotBlock from "@/components/find/HotBlock.vue"
-import LikeBlock from "@/components/find/LikeBlock.vue"
-import NavBlock from "@/components/find/NavBlock.vue"
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss">
 .box {

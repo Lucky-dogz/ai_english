@@ -1,5 +1,5 @@
-import youdao_axios from "./axios"
-import my_axios from "./axios1"
+import youdao_axios from "./axios_youdao"
+import my_axios from "./axios_my"
 
 /**
  *  有道翻译单词接口
@@ -119,12 +119,11 @@ export async function _addArticle<T>(data: object): Promise<T> {
  * @param usernum 账号
  */
 export async function _getUserData<T>(usernum: string): Promise<T> {
-  const response = await my_axios({
+  return await my_axios({
     url: "/user/getuser",
     method: "get",
     params: {
       user_num: usernum,
     },
   })
-  return response.data
 }
