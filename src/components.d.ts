@@ -9,11 +9,25 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ArticleLists: typeof import('./components/article/articleLists.vue')['default']
+    ArticRead: typeof import('./components/article/articRead.vue')['default']
+    CAT: typeof import('./components/common/CAT.vue')['default']
+    Dialog: typeof import('./components/article/dialog.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
+    Header: typeof import('./components/common/Header.vue')['default']
+    HeaderBg: typeof import('./components/find/HeaderBg.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    HotBlock: typeof import('./components/find/HotBlock.vue')['default']
+    LikeBlock: typeof import('./components/find/LikeBlock.vue')['default']
+    MainHeader: typeof import('./components/common/MainHeader.vue')['default']
+    NavBlock: typeof import('./components/find/NavBlock.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

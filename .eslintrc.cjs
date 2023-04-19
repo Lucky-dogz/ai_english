@@ -3,6 +3,9 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true,
+    // The Follow config only works with eslint-plugin-vue v8.0.0+
+    "vue/setup-compiler-macros": true,
   },
   extends: [
     // 'plugin:vue/vue3-essential',
@@ -22,6 +25,7 @@ module.exports = {
   },
   plugins: ["vue", "@typescript-eslint"],
   rules: {
+    eqeqeq: "off", // 允许双等号
     "linebreak-style": [0, "error", "windows"], // 关闭crlf报错提醒
     "prettier/prettier": "error",
     camelcase: [
@@ -32,5 +36,7 @@ module.exports = {
     ], // 强制驼峰法命名 - 关闭
     "@typescript-eslist/camelcase": 0,
     "vue/multi-word-component-names": "off", // 关闭组件驼峰命名
+    // 禁止不必要的转义字符
+    "no-useless-escape": 0,
   },
 }

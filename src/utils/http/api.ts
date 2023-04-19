@@ -76,12 +76,11 @@ export async function _userLogin<T>(data: object): Promise<T> {
  * param: { category: "cnn" } or { author: "骑猪学口语" }
  */
 export async function _getArticleLists<T>(param: object): Promise<T> {
-  const response = await my_axios.get("/articles/lists", {
+  return await my_axios.get("/articles/lists", {
     params: {
       ...param,
     },
   })
-  return response.data
 }
 
 /**
@@ -89,12 +88,11 @@ export async function _getArticleLists<T>(param: object): Promise<T> {
  * @param id
  */
 export async function _getArticleContent<T>(id: string): Promise<T> {
-  const response = await my_axios.get("/articles/content", {
+  return await my_axios.get("/articles/content", {
     params: {
       id,
     },
   })
-  return response.data
 }
 
 /**
@@ -108,20 +106,19 @@ export async function _getArticleContent<T>(id: string): Promise<T> {
     author = ""
   },
  */
-export async function addArticle<T>(data: object): Promise<T> {
-  const response = await my_axios({
+export async function _addArticle<T>(data: object): Promise<T> {
+  return await my_axios({
     url: "/articles/add",
     method: "post",
     data,
   })
-  return response.data
 }
 
 /**
  * 获取id用户数据
  * @param usernum 账号
  */
-export async function getUserData<T>(usernum: string): Promise<T> {
+export async function _getUserData<T>(usernum: string): Promise<T> {
   const response = await my_axios({
     url: "/user/getuser",
     method: "get",
