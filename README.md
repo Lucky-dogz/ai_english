@@ -22,11 +22,17 @@
 - 利用express框架搭建后台服务，部署在个人云服务器中，连接 mysql 数据库提供在线接口，编写接口文档。
 - 对node后端进行jwt登录验证，前端路由鉴权，开发接口等。
 
-解决Android&vue混合开发界面集成问题、集成开发讯飞口语语音评测模块的问题，获得省级大学生创新创业项目立项、申请软件著作权中。
+解决Android&vue混合开发界面集成问题、集成开发讯飞口语语音评测模块的问题，获得省级大学生创新创业项目立项、申请软件著作权中。文档持续更新中...
 
 ------
 
 
+
+### 部分界面展示
+
+<img src="public\show\login.png" alt="login" style="zoom: 50%;" /><img src="public\show\regist.png" alt="regist" style="zoom:50%;" /><img src="public\show\find.png" alt="find" style="zoom:50%;" /><img src="public\show\my.png" alt="my" style="zoom:50%;" />
+
+<img src="public\show\setting.png" alt="setting" style="zoom:50%;" /><img src="public\show\word_collect.png" alt="word_collect" style="zoom:50%;" /><img src="public\show\article.png" alt="article" style="zoom:50%;" /><img src="public\show\read.png" alt="read" style="zoom:50%;" />
 
 ### 一、项目搭建
 
