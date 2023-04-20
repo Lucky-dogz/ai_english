@@ -72,6 +72,30 @@ const routes = [
       },
     ],
   },
+  // 设置页面
+  {
+    path: "/set",
+    name: "setting",
+    component: async () => await import("@/pages/setting/index.vue"),
+  },
+  // 订单中心页面
+  {
+    path: "/order",
+    name: "order",
+    component: async () => await import("@/pages/order/index.vue"),
+  },
+  // 学习周报页面
+  {
+    path: "/weekreport",
+    name: "weekreport",
+    component: async () => await import("@/pages/weekReport/index.vue"),
+  },
+  // 客服中心页面
+  {
+    path: "/customer",
+    name: "customer",
+    component: async () => await import("@/pages/customer/index.vue"),
+  },
   // {
   // 配置404页面
   // path: '/:catchAll(.*)',
