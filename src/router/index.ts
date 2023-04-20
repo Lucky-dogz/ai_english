@@ -47,7 +47,31 @@ const routes = [
     name: "articread",
     component: async () => await import("@/components/article/articRead.vue"),
   },
-
+  // 收藏页面
+  {
+    path: "/collect",
+    name: "collect",
+    component: async () => await import("@/pages/collect/index.vue"),
+    redirect: "/collect/words",
+    children: [
+      {
+        path: "/collect/peiyin",
+        name: "peiyin",
+        component: async () => await import("@/components/collect/peiyin.vue"),
+      },
+      {
+        path: "/collect/words",
+        name: "words",
+        component: async () => await import("@/components/collect/words.vue"),
+      },
+      {
+        path: "/collect/myarticle",
+        name: "myarticle",
+        component: async () =>
+          await import("@/components/collect/myarticle.vue"),
+      },
+    ],
+  },
   // {
   // 配置404页面
   // path: '/:catchAll(.*)',

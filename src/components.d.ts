@@ -27,11 +27,14 @@ declare module '@vue/runtime-core' {
     HotBlock: typeof import('./components/find/HotBlock.vue')['default']
     LikeBlock: typeof import('./components/find/LikeBlock.vue')['default']
     MainHeader: typeof import('./components/common/MainHeader.vue')['default']
+    Myarticle: typeof import('./components/collect/myarticle.vue')['default']
     MyInfo: typeof import('./components/my/MyInfo.vue')['default']
     MyLevel: typeof import('./components/my/MyLevel.vue')['default']
     MyNav: typeof import('./components/my/MyNav.vue')['default']
     NavBlock: typeof import('./components/find/NavBlock.vue')['default']
+    Peiyin: typeof import('./components/collect/peiyin.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Words: typeof import('./components/collect/words.vue')['default']
   }
 }

@@ -72,6 +72,7 @@ export const userStore = defineStore("user", {
   },
 
   actions: {
+    // 加载用户数据
     async loadUserData(userNum: string) {
       try {
         this.userInfo = await _getUserData(userNum).then((res: any) => {
@@ -83,5 +84,14 @@ export const userStore = defineStore("user", {
       }
     },
   },
-  getters: {},
+  getters: {
+    // 收藏单词数量
+    collect_words_length: state => {
+      let number = 0
+      state.collect_words.forEach((value, index) => {
+        number += state.collect_words[index].wordLists.length
+      })
+      return number
+    },
+  },
 })

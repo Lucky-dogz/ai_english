@@ -1,12 +1,12 @@
 <template>
-  <!--   <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component }">
     <keep-alive exclude="articRead,ORder,WeekReport,CUstomer,my_Article,PeiYin">
       <component :is="Component" />
     </keep-alive>
-  </router-view> -->
-  <keep-alive exclude="articRead,ORder,WeekReport,CUstomer,my_Article,PeiYin">
+  </router-view>
+  <!--   <keep-alive exclude="articRead,ORder,WeekReport,CUstomer,my_Article,PeiYin">
     <router-view></router-view>
-  </keep-alive>
+  </keep-alive> -->
 </template>
 
 <script setup lang="ts">

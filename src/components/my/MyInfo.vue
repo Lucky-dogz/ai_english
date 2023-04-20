@@ -83,6 +83,8 @@ const copy = () => {
         showClose: true,
         message: "复制成功",
         type: "success",
+        center: true,
+        duration: 1000,
       })
     } else {
       // eslint-disable-next-line no-undef
@@ -97,6 +99,8 @@ const copy = () => {
         showClose: true,
         message: "复制失败",
         type: "warning",
+        center: true,
+        duration: 1000,
       })
     } else {
       // eslint-disable-next-line no-undef

@@ -66,7 +66,7 @@ const navLists = ref([
 const router = useRouter()
 const navJump = (navName, id) => {
   // eslint-disable-next-line array-callback-return
-  navLists.map(item => {
+  navLists.value.map(item => {
     if (id === item.nav_id && item.hasNewInfo === true) {
       // console.log(item.hasNewInfo)
       item.hasNewInfo = false
