@@ -31,7 +31,7 @@
 
 ### 部分界面展示
 
-<img src="public\show\login.png" alt="login" style="zoom: 50%;" /><img src="public\show\regist.png" alt="regist" style="zoom:50%;" /><img src="public\show\find.png" alt="find" style="zoom:50%;" /><img src="public\show\my.png" alt="my" style="zoom:50%;" />
+<img src="public\show\login.png" alt="login" style="zoom: 50%;width:200px;" /><img src="public\show\regist.png" alt="regist" style="zoom:50%;width:200px;" /><img src="public\show\find.png" alt="find" style="zoom:50%;width:200px;" /><img src="public\show\my.png" alt="my" style="zoom:50%;width:200px;" />
 
 <img src="public\show\setting.png" alt="setting" style="zoom:50%;width:200px;" /><img src="public\show\word_collect.png" alt="word_collect" style="zoom:50%;width:200px;" /><img src="public\show\article.png" alt="article" style="zoom:50%;width:200px;" /><img src="public\show\read.png" alt="read" style="zoom:50%;width:200px;" />
 
